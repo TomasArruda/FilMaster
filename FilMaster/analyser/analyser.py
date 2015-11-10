@@ -7,3 +7,5 @@ class Analyser:
 		self.film = film
 
 	def analyse()
+		for review in reviewList
+			print review
