@@ -18,9 +18,24 @@ class Analyser(object):
 		return result
 
 	def analyse(self, review):
+		splitter = TextSplitter()
+		postagger = TextTagger()
+
+		splitted_sentences = splitter.split(review)
+
+		pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
+
+		dicttagger = DictionaryTagger([ 'positive.yml', 'negative.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
+
+		dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
+		print dict_tagged_sentences
+
 		result = 0
-		for sentence in review:
-			result = result + self.sentence_score(sentence, None, 0.0)
+		for token in dict_tagged_sentences:
+			result = result + self.sentence_score(token, None, 0.0)
+		
+		print result
+
 		return result
 
 	def sentence_score(self, sentence_tokens, previous_token, score):    
@@ -42,23 +57,6 @@ class Analyser(object):
 					token_score *= -1.0
 			return self.sentence_score(sentence_tokens[1:], current_token, score + token_score)
 
-	def test(self):
-		text = """What can I say about this place. The staff of the restaurant is nice and the eggplant is not bad. Apart from that, very uninspired food, lack of atmosphere and too expensive. I am a staunch vegetarian and was sorely dissapointed with the veggie options on the menu. Will be the last time I visit, I recommend others to avoid."""
-
-		splitter = TextSplitter()
-		postagger = TextTagger()
-
-		splitted_sentences = splitter.split(text)
-
-		pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
-
-		dicttagger = DictionaryTagger([ 'positive.yml', 'negative.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
-
-		dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
-
-		print dict_tagged_sentences
-
-		print self.analyse(dict_tagged_sentences)
 
 
 
