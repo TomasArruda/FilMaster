@@ -25,7 +25,7 @@ class Analyser(object):
 
 		pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
 
-		dicttagger = DictionaryTagger([ 'positive.yml', 'negative.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
+		dicttagger = DictionaryTagger([ 'positive2.yml', 'negative2.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
 
 		dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
 		print dict_tagged_sentences
