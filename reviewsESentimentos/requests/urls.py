@@ -18,6 +18,7 @@ from django.contrib import admin
 from requests import views
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.home, name='home'),
+	url(r'^admin/', include(admin.site.urls)),
+	#botar aqui a url da API http://developer.nytimes.com/docs/read/movie_reviews_api
+	url(r'^$', views.request_reviews, name='home'),
 ]

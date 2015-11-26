@@ -24,6 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '6r$_ng@*0(pvk^(vs1vgrte^5=2@h3wix_!*)#fdcdcrp5&#m5'
 
+EMBEDLY_KEY = '8eb260cbb899f0bfdef87b8aca2446cb:1:73436343'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'requests',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,10 +58,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'reviewsESentimentos.urls'
 
+maybe = (os.path.join(BASE_DIR, 'template')).replace("\\", "/")
+maybe2 = os.path.join("//", maybe)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'template')],
+        'DIRS': [BASE_DIR+"/template", ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

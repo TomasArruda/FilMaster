@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>resposta do request</title>
+</head>
+<body>
+{% for review in content %}
+		<div class="autor">
+				<h2>{{review.autor}}</h2>
+				<div class="gender">{{review.gender}}</div>
+				<br>
+			<div class="conteudo">{{review.text}}</div>
+		</div>
+
+		{% empty %}
+			Não tem reviews desse genero
+		{% endfor %}
+</body>
+</html>
