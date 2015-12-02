@@ -1,6 +1,9 @@
 from textSplitter import TextSplitter
 from textTagger import TextTagger
 from dictionaryTagger import DictionaryTagger
+from nltk.tag.perceptron import PerceptronTagger
+import cProfile
+import pstats
 
 class Analyser(object):
 
@@ -8,6 +11,7 @@ class Analyser(object):
 	def __init__(self, reviewList, film):
 		self.reviewList = reviewList
 		self.film = film
+		self.tagger = PerceptronTagger()
 
 	def value_of(selg, sentiment):
 		result = 0
@@ -17,13 +21,19 @@ class Analyser(object):
 			result = -1
 		return result
 
+	def bestAnalyse(self, review):
+		cProfile.runctx('self.analyse(review)', {'review': review}, locals())
+		#stats = pstats.Stats('analyse.profile')
+		#stats.strip_dirs().sort_stats('time').print_stats()
+
 	def analyse(self, review):
+
 		splitter = TextSplitter()
 		postagger = TextTagger()
 
 		splitted_sentences = splitter.split(review)
 
-		pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
+		pos_tagged_sentences = postagger.pos_tag(splitted_sentences, self.tagger)
 
 		dicttagger = DictionaryTagger([ 'positive2.yml', 'negative2.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
 
