@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from requests import views
+from requisicoesDeReviews import views
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
 	#botar aqui a url da API http://developer.nytimes.com/docs/read/movie_reviews_api
-	url(r'^$', views.request_reviews, name='home'),
+	url(r'^$', views.show_reviews, name='home'),
 ]

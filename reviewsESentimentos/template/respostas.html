@@ -4,14 +4,10 @@
 	<title>resposta do request</title>
 </head>
 <body>
-{% for review in content %}
-		<div class="autor">
-				<h2>{{review.autor}}</h2>
-				<div class="gender">{{review.gender}}</div>
+{% for review in reviews %}
 				<br>
-			<div class="conteudo">{{review.text}}</div>
-		</div>
-
+			<div class="conteudo">{{review}}</div>
+			
 		{% empty %}
 			Não tem reviews desse genero
 		{% endfor %}

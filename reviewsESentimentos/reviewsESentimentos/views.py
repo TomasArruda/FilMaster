@@ -9,9 +9,6 @@ import os
 
 # Create your views here.
 def home(request):
-	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-	maybe = (os.path.join(BASE_DIR, 'template')).replace("\\", "/")
 	#essas linhas devem ser descomentadas quando blog for implementado e as categorias puxadas dele
 	#test = Test.objects.get(id=test_id)
 	#context = {}

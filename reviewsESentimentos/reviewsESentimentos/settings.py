@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'requests',
+    'requisicoesDeReviews',
     'rest_framework',
 )
 
@@ -57,6 +57,12 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'reviewsESentimentos.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 maybe = (os.path.join(BASE_DIR, 'template')).replace("\\", "/")
 maybe2 = os.path.join("//", maybe)
