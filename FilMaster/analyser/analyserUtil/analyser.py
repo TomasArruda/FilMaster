@@ -1,3 +1,4 @@
+from __future__ import division
 from textSplitter import TextSplitter
 from textTagger import TextTagger
 from dictionaryTagger import DictionaryTagger
@@ -5,8 +6,16 @@ from nltk.tag.perceptron import PerceptronTagger
 import cProfile
 import pstats
 
-class Analyser(object):
 
+class Result(object):
+	def __init__(self, positive, negative, neutral):
+		self.total = positive + negative + neutral
+		self.positive = (positive/self.total)*100
+		self.negative = (negative/self.total)*100
+		self.neutral = (neutral/self.total)*100
+
+
+class Analyser(object):
 
 	def __init__(self, reviewList, film):
 		self.reviewList = reviewList
@@ -26,27 +35,48 @@ class Analyser(object):
 		#stats = pstats.Stats('analyse.profile')
 		#stats.strip_dirs().sort_stats('time').print_stats()
 
-	def analyse(self, review):
+	def analyse(self, reviews):
 
 		splitter = TextSplitter()
 		postagger = TextTagger()
+		countPositive = 0
+		countNegative = 0
+		countNeutral = 0
 
-		splitted_sentences = splitter.split(review)
+		for review in reviews:
 
-		pos_tagged_sentences = postagger.pos_tag(splitted_sentences, self.tagger)
+			print review 
 
-		dicttagger = DictionaryTagger([ 'positive2.yml', 'negative2.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
+			splitted_sentences = splitter.split(review)
 
-		dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
-		print dict_tagged_sentences
+			pos_tagged_sentences = postagger.pos_tag(splitted_sentences, self.tagger)
 
-		result = 0
-		for token in dict_tagged_sentences:
-			result = result + self.sentence_score(token, None, 0.0)
-		
-		print result
+			dicttagger = DictionaryTagger([ 'positive2.yml', 'negative2.yml', 'inc.yml', 'dec.yml', 'inv.yml'])
 
-		return result
+			dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
+			print dict_tagged_sentences
+
+			result = 0
+			for token in dict_tagged_sentences:
+				result = result + self.sentence_score(token, None, 0.0)
+			
+			print result
+
+			if result < 0:
+				countNegative = countNegative+1
+			elif result > 0:
+				countPositive = countPositive+1
+			else:
+				countNeutral = countNeutral+1
+
+		countResult = Result(countPositive, countNegative, countNeutral);
+
+		print countResult.total
+		print countResult.positive
+		print countResult.negative
+		print countResult.neutral
+
+		return countResult
 
 	def sentence_score(self, sentence_tokens, previous_token, score):    
 		if not sentence_tokens:

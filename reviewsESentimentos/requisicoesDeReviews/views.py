@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 
 from django.shortcuts import render_to_response, redirect
@@ -9,7 +10,7 @@ from .models import Reviews
 import requests
 from .serializer import EmbedSerializer
 from django.core import serializers
-from html.parser import HTMLParser
+from HTMLParser import HTMLParser
 
 # Create your views here.
 @csrf_exempt
@@ -40,7 +41,6 @@ def show_reviews(request):
 
 class MLStripper(HTMLParser):
 	def __init__(self):
-		super().__init__()
 		self.reset()
 		self.strict = False
 		self.convert_charrefs= True
