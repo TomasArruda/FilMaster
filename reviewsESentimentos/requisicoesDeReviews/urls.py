@@ -20,5 +20,5 @@ from requisicoesDeReviews import views
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
 	#botar aqui a url da API http://developer.nytimes.com/docs/read/movie_reviews_api
-	url(r'^$', views.show_reviews, name='home'),
+	url(r'^$', views.analise, name='home'),
 ]

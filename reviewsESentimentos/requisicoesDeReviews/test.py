@@ -23,22 +23,3 @@ a.analyse(
 	"",
 	"",
 	"" ])
-
-#a.analyse("""Very bad, I hate it!""")
-
-#neutral
-#positive
-#positive
-#negative
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
